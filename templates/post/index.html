@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+    {% block title %}
+        Post Ansayfa - {{block.super}}
+    {% endblock %}
+
+    {% block body %}
+        {# <!-- <a href="{% url 'detay' getPostData.pk %}" >   {{getPostData.title}} </a><br>--> #}
+    <div class="container">
+        <div class="row">
+                {% for getPostData in postdata %}
+
+                        <div class="col-12 col-sm-6 col-md-6" style="padding: 10px;">
+                          <div class="card">
+                            <div class="card-body">
+                                    {% if getPostData.image %} 
+                                    
+                                    <a href="{{ getPostData.get_absolute_url }}">
+                                        <div class="div-size col-12 col-sm-12 col-md-12 " style="background-image: url('{{ getPostData.image.url }}');"></div>
+                                    </a>
+                                    
+                                   <!--<img src="{{ getPostData.image.url }}" class="img-fluid image-center"/>-->
+                                    {% endif %}
+                                
+                                <h5 class="card-title"><a href="{{ getPostData.get_absolute_url }}" >{{getPostData.title}} </a></h5>
+                                <small>Yazar: {{ getPostData.users.get_full_name }}</small>
+                                <p class="card-text">{{getPostData.content|safe|truncatechars:50}}</p>
+                                <div class="col-12 col-md-12 col-sm-12 btn-group btn-group-justified">
+                                    <div class="col-4 col-md-3 col-sm-3" style="float: left;">
+                                            <a href="{{ getPostData.get_absolute_url }}" class="btn btn-outline-primary">Detay</a>
+                                    </div>
+                                    {% if request.user.is_authenticated %} 
+                                    <div class="col-4 col-md-3 col-sm-3" style="float: left;">
+                                            <a href="{{ getPostData.get_post_update }}" class="btn btn-outline-secondary">Güncelle</a>
+                                    </div>
+                                    {% endif %}
+                                    {% if request.user.is_authenticated %} 
+                                    <div class="col-4 col-md-3 col-sm-3" style="float: left;">
+                                            <a href="{{ getPostData.get_post_delete }}" class="btn btn-outline-danger">Silme</a>
+                                    </div>
+                                    {% endif %}
+                                    {% if request.user.is_authenticated %}
+                                    
+                                    {% else %}
+                                    <div class="col-4 col-md-3 col-sm-3" style="float: left;">
+                                            <small style="float: right; padding-top: 10px;">{{getPostData.publishDate|timesince }} önce</small>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                              
+                             
+                            </div>
+                          </div>
+                        </div>
+
+                {% endfor %}
+
+
+
+         
+        </div> 
+
+
+
+
+        <div class="pagination">
+                <span class="step-links">
+                    {% if postdata.has_previous %}
+                        <a href="?page={{ postdata.previous_page_number }} {% if request.GET.arama %} & {{ request.GET.arama }} {% endif %} ">Geri</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Sayfa {{ postdata.number }} <!--, {{ postdata.paginator.num_pages }}.-->
+                    </span>
+            
+                    {% if postdata.has_next %}
+                        <a href="?page={{ postdata.next_page_number }}  {% if request.GET.arama %} & {{ request.GET.arama }} {% endif %}">İleri</a>
+                    {% endif %}
+                </span>
+        </div>
+
+    </div>      
+
+    {% endblock %}   
+    
+
+
+         <!--    <li>
+                        {{getPostData.İndex}} <br>
+                        <a href="{{ getPostData.get_absolute_url }}" >   {{getPostData.title}} </a><br>
+                        {{getPostData.content}} <br>
+                        {{getPostData.publishDate}} <br>
+                        {{ getPostData.get_absolute_url}}
+
+                    </li> -->

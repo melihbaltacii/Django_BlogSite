@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+
+    {% block title %}
+
+        Post Detay - {{ block.super }}
+
+    {% endblock %}
+
+
+    {% block body %}
+    
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12 col-md-12 col-sm-12">
+                {% if posdetailpage.image %}
+                   <img src=" {{ posdetailpage.image.url }} " class="img-fluid image_detay" />
+                {% endif %}
+            </div>
+            <div class="col-12 col-md-12 col-sm-12">
+                   <h2>{{posdetailpage.title}}</h2>
+                   <small>{{ posdetailpage.users.get_full_name }}</small>
+            </div>
+            <div class="col-12 col-md-12 col-sm-12">
+                    {{posdetailpage.content|safe}}
+            </div>
+
+        </div>
+
+
+
+          
+               <!--
+
+  
+
+
+            <p></p>
+                
+            <h3>Yorum Ekle</h3>
+            <p>{% include 'post/comment.html' %}</p>
+            <hr>
+
+               -->
+    </div>
+    
+
+          
+   
+    {% endblock %}
+      
+        
+  

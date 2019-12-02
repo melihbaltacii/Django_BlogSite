@@ -1,0 +1,61 @@
+
+
+<!--
+    Menu Code 
+-->
+
+<!--Navbar -->
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark navbar-fixed-top gray lighten-1">
+    <a class="navbar-brand" href="{% url 'blog_post_app_name:anasayfa' %}">Django</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+      aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item menuItem">
+          <a class="nav-link" href="{% url 'blog_post_app_name:anasayfa' %}">Anasayfa
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item menuItem">
+          <a class="nav-link" href="{% url 'index' %}">Hakkımda</a>
+        </li>
+       {% if request.user.is_authenticated %} 
+        <li class="nav-item menuItem">
+          <a class="nav-link" href="{% url 'blog_post_app_name:postCreated' %}">Yazı Ekle</a>
+        </li>
+        {%  else %}
+          <li class="nav-item menuItem">
+              <a  class="nav-link" href="{% url 'accounts:register' %}">Üye Ol </a>
+          </li>
+          <li class="nav-item menuItemLogin">
+              <a class="nav-link"  href="{% url 'accounts:login' %}">Giriş Yap </a>
+          </li>
+        {% endif %} 
+      </ul>
+      <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item avatar">
+          <a class="nav-link p-0" href="#">
+              <form action="">
+                <input type="text" class="searchbar" placeholder="Search.." name="arama" value="{{ request.GET.arama }}">
+                <button  class="btn btn-dark" type="submit">Submit</button>
+              </form>
+
+            
+          </a>
+        </li>
+        <li class="nav-item username">
+          {{ request.user.get_full_name }}
+        </li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item menuItemLogout">
+          <a class="nav-link" href=" {% url 'accounts:logout' %} ">Çıkış Yap</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+  <!--/.Navbar -->
+
+
